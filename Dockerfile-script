@@ -1,0 +1,7 @@
+FROM alpine
+
+WORKDIR /usr/share/nginx
+
+ADD page-refresher.sh page-refresher.sh
+
+ENTRYPOINT sh page-refresher.sh
