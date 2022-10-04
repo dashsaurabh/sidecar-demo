@@ -16,8 +16,23 @@ spec:
         app: nginx
     spec:
       containers:
+      - image: progressivecoder/sidecar
+        name: sidecar
+        imagePullPolicy: Never
+        env:
+        - name: STATIC_SOURCE
+          value: https://raw.githubusercontent.com/dashsaurabh/sidecar-demo/master/index.html
+        volumeMounts:
+        - name: shared-data
+          mountPath: /usr/share/nginx/html   
       - image: progressivecoder/nginx
         name: nginx
         imagePullPolicy: Never
         ports:
         - containerPort: 80
+        volumeMounts:
+        - name: shared-data
+          mountPath: /usr/share/nginx/html/
+      volumes:
+      - name: shared-data
+        emptyDir: {}
